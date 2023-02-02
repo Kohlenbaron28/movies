@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spin, Alert } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-import { Offline } from 'react-detect-offline';
+import { Offline, Online } from 'react-detect-offline';
 
 import Service from '../services/Service';
 
@@ -70,17 +70,21 @@ export default class CardList extends React.Component {
     const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
     return (
       <div>
-        <Offline>You are offline!</Offline>
-        {loading && !error ? (
-          <Spin
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}
-            indicator={antIcon}
-          />
-        ) : !loading && !error ? (
-          <CardItem data={this.items} minify={minify} />
-        ) : error ? (
-          <Alert message="Error" description="This is an error message about copywriting." type="error" showIcon />
-        ) : null}
+        <Offline>
+          <h1>You are offline!🐖</h1>
+        </Offline>
+        <Online>
+          {loading && !error ? (
+            <Spin
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}
+              indicator={antIcon}
+            />
+          ) : !loading && !error ? (
+            <CardItem data={this.items} minify={minify} />
+          ) : error ? (
+            <Alert message="Error" description="This is an error message about copywriting." type="error" showIcon />
+          ) : null}
+        </Online>
       </div>
     );
   }
