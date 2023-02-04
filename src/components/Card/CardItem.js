@@ -3,6 +3,9 @@ import { Card, Col, Row } from 'antd';
 import { format, parse } from 'date-fns';
 
 export default class CardItem extends React.Component {
+  state = {
+    loading: true,
+  };
   render() {
     const { data, minify } = this.props;
     let res = '';
