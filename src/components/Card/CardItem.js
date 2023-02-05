@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Col, Row } from 'antd';
-import { format, parse } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 export default class CardItem extends React.Component {
   state = {
@@ -8,18 +8,11 @@ export default class CardItem extends React.Component {
   };
   render() {
     const { data, minify } = this.props;
-    let res = '';
-    const formating = (dateString = '2017-01-13') => {
-      const date = parse(dateString, 'yyyy-MM-dd', new Date());
-      res = format(date, 'MMMM dd, yyyy');
-      return res;
-    };
 
     return (
       <Row gutter={16}>
         {data.map((obj) => {
-          let dateString = obj.release_date;
-          res = formating(dateString);
+          let res = format(parseISO(obj.release_date), 'MMMM dd, yyyy');
           return (
             <Col span={8} key={obj.id}>
               <Card

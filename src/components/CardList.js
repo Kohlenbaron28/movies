@@ -9,57 +9,15 @@ import CardItem from './Card/CardItem';
 
 export default class CardList extends React.Component {
   service = new Service();
+  componentDidUpdate(prevProps) {
+    if (this.props.page !== prevProps.page && prevProps.page !== null) {
+      console.log('cardList', prevProps);
+      console.log('cardListuuu', this.props);
 
-  //     this.state = {
-  //       items: [],
-  //       loading: true,
-  //     };
-  //   }
+      //this.props.updateMovie(this.props.keyword, this.props.page);
+    }
+  }
 
-  //   componentDidMount() {
-  //     this.updateMovie();
-  //   }
-  //   onError() {
-  //     this.setState({
-  //       error: true,
-  //       loading: false,
-  //     });
-  //   }
-  //   items = [];
-  //   updateMovie() {
-  //     let keyword = this.props.keyword;
-  //     console.log(keyword);
-  //     this.service
-  //       .getResource(keyword)
-  //       .then((res) => res.results)
-  //       .then((res) =>
-  //         res.forEach((res) => {
-  //           this.items.push({
-  //             id: res.id,
-  //             title: res.title,
-  //             release_date: res.release_date,
-  //             poster_path: res.poster_path,
-  //             overview: res.overview,
-  //             genre_ids: res.genre_ids,
-  //           });
-  //           this.setState({
-  //             items: [
-  //               {
-  //                 id: res.id,
-  //                 title: res.title,
-  //                 release_date: res.release_date,
-  //                 poster_path: res.poster_path,
-  //                 overview: res.overview,
-  //                 genre_ids: res.genre_ids,
-  //                 error: false,
-  //               },
-  //             ],
-  //             loading: false,
-  //           });
-  //         })
-  //       )
-  //       .catch(this.onError);
-  //   }
   render() {
     const { loading, error } = this.props;
 
@@ -81,7 +39,7 @@ export default class CardList extends React.Component {
           ) : !loading && !error ? (
             <div>
               <CardItem data={this.props.movies} minify={minify} />
-              <Pagination defaultCurrent={1} total={50} />;
+              <Pagination total={20} onChange={(num) => this.props.pagination(num)} />;
             </div>
           ) : error ? (
             <Alert message="Error" description="This is an error message about copywriting." type="error" showIcon />
