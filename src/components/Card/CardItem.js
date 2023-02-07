@@ -1,15 +1,20 @@
 import React from 'react';
 import { Card, Col, Row, Rate } from 'antd';
 import { format, parseISO } from 'date-fns';
-import './Card.css';
 
+import './Card.css';
+import { Consumer } from '../../services/Context';
 export default class CardItem extends React.Component {
   state = {
     loading: true,
   };
-
+  findGenre = (genres) => {
+    for (let id of genres) {
+      this.props.getGenres(id);
+    }
+  };
   render() {
-    const { data, minify, genre, onChangeStar } = this.props;
+    const { data, minify, onChangeStar } = this.props;
     let newdata = JSON.parse(localStorage.getItem('stars'));
 
     return (
@@ -23,6 +28,7 @@ export default class CardItem extends React.Component {
                 val = objj.star;
               }
             }
+            console.log(obj.genre_ids);
             return (
               <Col span={8} key={obj.id}>
                 <Card
@@ -48,8 +54,27 @@ export default class CardItem extends React.Component {
                   </div>
                   <div className="card__date">{res}</div>
                   <div className="card__genres">
-                    <span>{[...obj.genre_ids]}</span>
-                    <span>{`${JSON.stringify(genre)}hh`}</span>
+                    <Consumer>
+                      {(value) => {
+                        let arr = [];
+                        for (let id of obj.genre_ids) {
+                          for (let objj of value) {
+                            if (objj.id === id) {
+                              arr.push(objj.name);
+                            }
+                          }
+                          //return value.map((objj) => objj.id === id && arr.push[objj.name]);
+                          //<span key={objj.id}>{objj.name}</span> : null));
+                        }
+                        console.log(arr);
+                        return arr.map((genre) => (
+                          <span key={genre} className="genre_id">
+                            {genre}
+                          </span>
+                        ));
+                        //return <span>{[...arr]}</span>;
+                      }}
+                    </Consumer>
                   </div>
                   <div className="card__description">{minify(obj.overview)}</div>
                   <Rate

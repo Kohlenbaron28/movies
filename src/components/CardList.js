@@ -18,7 +18,7 @@ export default class CardList extends React.Component {
   //   }
 
   render() {
-    const { loading, error, onChangeStar } = this.props;
+    const { loading, error, onChangeStar, getGenres, genresArr } = this.props;
 
     const minify = (text) => {
       return text.replace(/^(.{100}[^\s]*).*/, '$1');
@@ -41,7 +41,8 @@ export default class CardList extends React.Component {
                 data={this.props.movies}
                 minify={minify}
                 onChangeStar={onChangeStar}
-                //genre={() => value(this.props.movies.map((mov) => mov.genre_ids))}
+                getGenres={getGenres}
+                genresArr={genresArr}
               />
               <Pagination total={20} onChange={(num) => this.props.pagination(num)} />;
             </div>

@@ -13,11 +13,13 @@ export default class SearchPage extends React.Component {
     loading: true,
     currentPage: 1,
     totalResults: 0,
+    genres: null,
   };
   componentDidMount() {
     this.handleEnter();
+    this.getGenres();
   }
-
+  genresArr = [];
   items = [];
   currentPage = (num) => {
     let items = [];
@@ -82,14 +84,16 @@ export default class SearchPage extends React.Component {
         })
       );
   }
-  //   getGenres = () => {
-  //     let arr = this.state.movies.map((mov) => mov.genre_ids);
-  //     arr.forEach((item) => {
-  //       fetch(
-  //         `https://api.themoviedb.org/3/genres/get-movie-list?api_key=bc62132d513b6a5e8c531f882e36dfa8&query=${item}`
-  //       ).then((res) => res.json());
-  //     });
-  //   };
+  getGenres = () => {
+    fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=bc62132d513b6a5e8c531f882e36dfa8')
+      .then((res) => res.json())
+      .then((res) => res.genres)
+      .then((res) =>
+        this.setState({
+          genres: res,
+        })
+      );
+  };
   onChangeStar = (num, id) => {
     this.setState((state) => {
       let existingEntries = JSON.parse(localStorage.getItem('stars'));
@@ -109,8 +113,9 @@ export default class SearchPage extends React.Component {
   };
   render() {
     console.log(this.items);
+    console.log(this.state.genres);
     return (
-      <Provider value={this.getGenres}>
+      <Provider value={this.state.genres}>
         <div>
           <Search enterHandler={this.handleEnter} />
           {this.items.length <= 1 ? (
@@ -124,7 +129,8 @@ export default class SearchPage extends React.Component {
               pagination={this.currentPage}
               page={this.state.page}
               updateMovie={this.updateMovie}
-              //stars={this.state.star}
+              getGenres={this.getGenres}
+              genresAee={this.genresArr}
               onChangeStar={this.onChangeStar}
             />
           )}
