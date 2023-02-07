@@ -26,7 +26,8 @@
   },
   "plugins": ["react", "prettier", "import", "babel"],
   "rules": {
-    "indent": ["error", 2, { "SwitchCase": 1 }],
+    //"indent": ["error", 2, { "SwitchCase": 1 }],
+    "indent": "off",
     "prettier/prettier": "error",
     "linebreak-style": [0, "unix"],
     "quotes": ["error", "single"],

@@ -3,3 +3,16 @@
 }
 .card__title {
 }
+.reiting {
+  position: absolute;
+  /* background-color: tomato; */
+  border-radius: 50%;
+  border-style: solid;
+  color: black;
+  height: 20px;
+  width: 20px;
+  top: 0px;
+  right: 0;
+  text-align: center;
+  padding: 10px;
+}

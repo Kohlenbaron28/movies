@@ -9,17 +9,16 @@ import CardItem from './Card/CardItem';
 
 export default class CardList extends React.Component {
   service = new Service();
-  componentDidUpdate(prevProps) {
-    if (this.props.page !== prevProps.page && prevProps.page !== null) {
-      console.log('cardList', prevProps);
-      console.log('cardListuuu', this.props);
-
-      //this.props.updateMovie(this.props.keyword, this.props.page);
-    }
-  }
+  stars = this.props.movies.map((mov) => mov.star);
+  //   componentDidUpdate(prevProps) {
+  //     if (this.stars !== prevProps.stars && prevProps.stars !== null) {
+  //       console.log('cardList', prevProps.stars);
+  //       console.log('cardListuuu', this.stars);
+  //     }
+  //   }
 
   render() {
-    const { loading, error } = this.props;
+    const { loading, error, onChangeStar } = this.props;
 
     const minify = (text) => {
       return text.replace(/^(.{100}[^\s]*).*/, '$1');
@@ -38,7 +37,12 @@ export default class CardList extends React.Component {
             />
           ) : !loading && !error ? (
             <div>
-              <CardItem data={this.props.movies} minify={minify} />
+              <CardItem
+                data={this.props.movies}
+                minify={minify}
+                onChangeStar={onChangeStar}
+                //genre={() => value(this.props.movies.map((mov) => mov.genre_ids))}
+              />
               <Pagination total={20} onChange={(num) => this.props.pagination(num)} />;
             </div>
           ) : error ? (
