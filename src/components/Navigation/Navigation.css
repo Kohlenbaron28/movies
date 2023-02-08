@@ -1,7 +1,10 @@
 a {
   text-decoration: none;
+  color: black;
 }
-
+a:hover {
+  color: blue;
+}
 .navigation {
   display: flex;
   justify-content: center;
@@ -10,6 +13,7 @@ a {
 .navigation__item {
   list-style: none;
 }
+
 .active {
   color: blue;
   border-bottom: blue solid 2px;
