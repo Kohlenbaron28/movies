@@ -28,7 +28,7 @@ export default class CardItem extends React.Component {
                 val = objj.star;
               }
             }
-            console.log(obj.genre_ids);
+
             return (
               <Col span={8} key={obj.id}>
                 <Card

@@ -25,7 +25,7 @@ export default class SearchPage extends React.Component {
   currentPage = (num) => {
     let items = [];
     fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=bc62132d513b6a5e8c531f882e36dfa8&query=${this.state.keyword}&page=${num}`
+      `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&query=${this.state.keyword}&page=${num}`
     )
       .then((res) => res.json())
       .then((res) => res.results)
@@ -63,7 +63,7 @@ export default class SearchPage extends React.Component {
   };
   updateMovie() {
     fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=bc62132d513b6a5e8c531f882e36dfa8&query=${this.state.keyword}&page=${this.state.currentPage}`
+      `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&query=${this.state.keyword}&page=${this.state.currentPage}`
     )
       .then((res) => res.json())
       .then((res) => res.results)
@@ -86,7 +86,7 @@ export default class SearchPage extends React.Component {
       );
   }
   getGenres = () => {
-    fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=bc62132d513b6a5e8c531f882e36dfa8')
+    fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}`)
       .then((res) => res.json())
       .then((res) => res.genres)
       .then((res) => {
