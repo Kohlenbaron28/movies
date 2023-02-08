@@ -63,16 +63,12 @@ export default class CardItem extends React.Component {
                               arr.push(objj.name);
                             }
                           }
-                          //return value.map((objj) => objj.id === id && arr.push[objj.name]);
-                          //<span key={objj.id}>{objj.name}</span> : null));
                         }
-                        console.log(arr);
                         return arr.map((genre) => (
                           <span key={genre} className="genre_id">
                             {genre}
                           </span>
                         ));
-                        //return <span>{[...arr]}</span>;
                       }}
                     </Consumer>
                   </div>

@@ -1,9 +1,10 @@
 import React from 'react';
 
-import CardList from '../components/CardList';
-import Search from '../components/Search';
-import Service from '../services/Service';
-import { Provider } from '../services/Context';
+import './SearchPage.css';
+import CardList from '../CardList';
+import Search from '../Search/Search';
+import Service from '../../services/Service';
+import { Provider } from '../../services/Context';
 
 export default class SearchPage extends React.Component {
   service = new Service();
@@ -88,11 +89,12 @@ export default class SearchPage extends React.Component {
     fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=bc62132d513b6a5e8c531f882e36dfa8')
       .then((res) => res.json())
       .then((res) => res.genres)
-      .then((res) =>
+      .then((res) => {
         this.setState({
           genres: res,
-        })
-      );
+        });
+        localStorage.setItem('genres', JSON.stringify(res));
+      });
   };
   onChangeStar = (num, id) => {
     this.setState((state) => {
@@ -112,14 +114,15 @@ export default class SearchPage extends React.Component {
     });
   };
   render() {
-    console.log(this.items);
-    console.log(this.state.genres);
     return (
       <Provider value={this.state.genres}>
         <div>
           <Search enterHandler={this.handleEnter} />
           {this.items.length <= 1 ? (
-            <p>no matches</p>
+            <div className="nothing">
+              <p>no matches...</p>
+              <img src="https://i.gifer.com/2GU.gif" alt="" />
+            </div>
           ) : (
             <CardList
               movies={this.state.movies}
@@ -132,6 +135,7 @@ export default class SearchPage extends React.Component {
               getGenres={this.getGenres}
               genresAee={this.genresArr}
               onChangeStar={this.onChangeStar}
+              minify={this.props.minify}
             />
           )}
         </div>

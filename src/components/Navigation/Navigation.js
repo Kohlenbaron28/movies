@@ -8,7 +8,7 @@ export default class Navigation extends React.Component {
     return (
       <div>
         <ul className="navigation">
-          <li className="navigation__item active">
+          <li className="navigation__item">
             <Link to="/">Search</Link>
           </li>
           <li className="navigation__item">

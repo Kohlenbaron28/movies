@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import SearchPage from '../SearchPage';
+import SearchPage from '../SearchPage/SearchPage';
 import RatedPage from '../RatedPage';
 import Navigation from '../Navigation/Navigation';
 
@@ -11,7 +11,9 @@ export default class App extends React.Component {
   };
 
   render() {
-    console.log(localStorage.getItem('stars'));
+    const minify = (text) => {
+      return text.replace(/^(.{100}[^\s]*).*/, '$1');
+    };
     if (localStorage.getItem('stars') === null) {
       localStorage.setItem(
         'stars',
@@ -34,8 +36,8 @@ export default class App extends React.Component {
       <div>
         <Navigation />
         <Routes>
-          <Route path="/" element={<SearchPage />} />
-          <Route path="/rate" element={<RatedPage />} />
+          <Route path="/" element={<SearchPage minify={minify} />} />
+          <Route path="/rate" element={<RatedPage minify={minify} />} />
         </Routes>
       </div>
     );

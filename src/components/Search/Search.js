@@ -1,5 +1,8 @@
 import React from 'react';
 import { debounce } from 'lodash';
+
+import './Search.css';
+
 export default class Search extends React.Component {
   state = {
     search: '',
@@ -13,24 +16,12 @@ export default class Search extends React.Component {
   changeItem = async (e) => {
     this.debouncedSearch(e.target.value);
     console.log(this.state.search);
-    //
   };
 
   render() {
     return (
-      <div>
-        <input
-          type="text"
-          style={{ width: '100%' }}
-          placeholder="Type to search..."
-          //value={this.state.search}
-          onChange={this.changeItem}
-          //onKeyUp={this.handleEnter}
-        />
-        <button className="btn" onClick={() => this.props.enterHandler(this.state.search)}>
-          Search
-        </button>
-        {console.log(this.state.search)}
+      <div className="search">
+        <input className="search__input" type="text" placeholder="Type to search..." onChange={this.changeItem} />
       </div>
     );
   }
